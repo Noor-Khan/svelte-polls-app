@@ -5,7 +5,7 @@
 </header>
 <style>
   header {
-    padding: 40px;
+    padding: 10px;
     background-color: #f4f4f4;
     text-align: center;
   }
