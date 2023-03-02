@@ -1,9 +1,10 @@
 <script>
+  import PollDetails from "./PollDetails.svelte";
   export let polls = []
 </script>
 <div class="poll-list">
   {#each polls as poll (poll.id)}
-    <div class="list-item">{ poll.question }</div>
+    <PollDetails {poll} />
   {/each}
 </div>
 <style>
@@ -11,9 +12,5 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
-  }
-  .list-item {
-    padding: 10px;
-    border: 1px solid #eee;
   }
 </style>

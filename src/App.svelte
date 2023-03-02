@@ -13,8 +13,8 @@
 			question: 'Do you like Python or Javascript?',
 			answerA: 'python',
 			answerB: 'javascript',
-			votesA: 0,
-			votesB: 0,
+			votesA: 9,
+			votesB: 15,
 		}
 	]
 	const addPoll = (e) => {
