@@ -25,13 +25,24 @@
 	const tabChange = (e)=> {
 		activeItem = e.detail
 	}
+	const handleUpvote = (e) => {
+		const {option, id} = e.detail
+		let upvotedPoll = polls.find((poll) => poll.id === id)
+		if(option === 'a') {
+			upvotedPoll.votesA++
+		}
+		if(option === 'b') {
+			upvotedPoll.votesB++
+		}
+		polls = polls
+	}
 </script>
 
 <Header/>
 <main>
 	<Tabs {items} {activeItem} on:tabChange={tabChange} />
 	{#if activeItem === 'Current Polls'}
-		<PollList {polls}/>
+		<PollList {polls} on:upvote={handleUpvote}/>
 		{:else if activeItem === 'Add New Poll'}
 			<PollForm on:addNewPoll={addPoll} />
 	{/if}

@@ -4,7 +4,7 @@
 </script>
 <div class="poll-list">
   {#each polls as poll (poll.id)}
-    <PollDetails {poll} />
+    <PollDetails {poll} on:upvote />
   {/each}
 </div>
 <style>
