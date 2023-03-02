@@ -7,34 +7,12 @@
 
 	let items = ['Current Polls', "Add New Poll"]
 	let activeItem = 'Current Polls'
-	let polls = [
-		{
-			id: 1,
-			question: 'Do you like Python or Javascript?',
-			answerA: 'python',
-			answerB: 'javascript',
-			votesA: 9,
-			votesB: 15,
-		}
-	]
+
 	const addPoll = (e) => {
-		const poll = e.detail
-		polls = [poll, ...polls]
 		activeItem = 'Current Polls'
 	}
 	const tabChange = (e)=> {
 		activeItem = e.detail
-	}
-	const handleUpvote = (e) => {
-		const {option, id} = e.detail
-		let upvotedPoll = polls.find((poll) => poll.id === id)
-		if(option === 'a') {
-			upvotedPoll.votesA++
-		}
-		if(option === 'b') {
-			upvotedPoll.votesB++
-		}
-		polls = polls
 	}
 </script>
 
@@ -42,7 +20,7 @@
 <main>
 	<Tabs {items} {activeItem} on:tabChange={tabChange} />
 	{#if activeItem === 'Current Polls'}
-		<PollList {polls} on:upvote={handleUpvote}/>
+		<PollList />
 		{:else if activeItem === 'Add New Poll'}
 			<PollForm on:addNewPoll={addPoll} />
 	{/if}
