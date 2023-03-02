@@ -12,6 +12,7 @@
       valid = false
     } else {
       errors.question = ""
+      valid = true
     }
 
     // for answer A
@@ -20,6 +21,7 @@
       valid = false
     } else {
       errors.answerA = ""
+      valid = true
     }
 
     // for answer B
@@ -28,9 +30,11 @@
       valid = false
     } else {
       errors.answerB = ""
+      valid = true
     }
     if(valid) {
-      console.log(fields, 'valid')
+      const poll = {...fields, votesA: 0, votesB: 0, id: Math.random()}
+      dispatch('addNewPoll', poll)
     }
   }
 </script>
