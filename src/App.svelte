@@ -1,4 +1,5 @@
 <script>
+	import PollStore from "./store/PollStore";
 	import Header from "./components/Header.svelte";
 	import Footer from "./components/Footer.svelte";
 	import PollForm from "./components/PollForm.svelte";
@@ -20,7 +21,11 @@
 <main>
 	<Tabs {items} {activeItem} on:tabChange={tabChange} />
 	{#if activeItem === 'Current Polls'}
-		<PollList />
+		{#if $PollStore.length > 0}
+			<PollList />
+			{:else}
+				<p>There is no poll.</p>
+		{/if}
 		{:else if activeItem === 'Add New Poll'}
 			<PollForm on:addNewPoll={addPoll} />
 	{/if}
@@ -31,5 +36,8 @@
 	main {
 		max-width: 960px;
 		margin: 40px auto
+	}
+	p {
+		text-align: center;
 	}
 </style>
