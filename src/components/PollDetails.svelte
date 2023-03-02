@@ -1,17 +1,26 @@
 <script>
+  import PollStore from "../store/PollStore";
   import Card from "../global/Card.svelte";
-  import { createEventDispatcher } from "svelte";
-  let dispatch = createEventDispatcher()
   export let poll;
   let totalPolls;
   let percentA;
   let percentB;
   $: totalPolls = poll.votesA + poll.votesB;
-  $: percentA = poll.votesA / totalPolls * 100
-  $: percentB = poll.votesB / totalPolls * 100
+  $: percentA = Math.round(poll.votesA / totalPolls * 100)
+  $: percentB = Math.round(poll.votesB / totalPolls * 100)
 
   let upvote = (option, id) => {
-    dispatch('upvote', {option, id})
+    PollStore.update(currentPolls => {
+      let upvotedPoll = currentPolls.find((poll) => poll.id === id)
+      if(option === 'a') {
+        upvotedPoll.votesA++
+      }
+      if(option === 'b') {
+        upvotedPoll.votesB++
+      }
+      return currentPolls
+    })
+		
   }
 </script>
 <Card>
@@ -19,16 +28,16 @@
     <h3>{poll.question}</h3>
     <div class="total">Total Polls: {totalPolls}</div>
     <p class="total-polls"></p>
-    <div class="answer" on:click={()=> upvote('a', poll.id)}>
-      <div class="percent percent-a" style="width: {percentA}%; background: {percentA < percentB ? '#ddd' : '#b5b5b5'}"></div>
+    <div class="answer" on:click={() => upvote('a', poll.id)}>
+      <div class="percent percent-a" style="width: {percentA}%; background: {percentA < percentB ? 'rgba(86, 220, 91, 0.6)' : 'rgb(86,220, 91)'}"></div>
       <span>{poll.answerA} ({poll.votesA})</span>
     </div>
-    <i>{Math.round(percentA)}%</i>
-    <div class="answer" on:click={()=> upvote('b', poll.id)}>
-      <div class="percent percent-b" style="width: {percentB}%; background: {percentB < percentA ? '#ddd' : '#b5b5b5'}"></div>
+    <i>{Boolean(percentA) ? percentA: 0}%</i>
+    <div class="answer" on:click={() => upvote('b', poll.id)}>
+      <div class="percent percent-b" style="width: {percentB}%; background: {percentB < percentA ? 'rgba(86, 220, 91, 0.6)' : 'rgb(86, 220, 91)'}"></div>
       <span>{poll.answerB} ({poll.votesB})</span>
     </div>
-    <i>{Math.round(percentB)}%</i>
+    <i>{Boolean(percentB) ? percentB : 0}%</i>
   </div>
 </Card>
 
