@@ -1,6 +1,7 @@
 <script>
   import PollStore from "../store/PollStore";
   import Card from "../global/Card.svelte";
+  import Button from "../global/Button.svelte";
   export let poll;
   let totalPolls;
   let percentA;
@@ -22,6 +23,11 @@
     })
 		
   }
+  let deletePoll = (id)=> {
+    PollStore.update(currentPolls =>{
+      return currentPolls.filter(poll => poll.id != id)
+    })
+  }
 </script>
 <Card>
   <div>
@@ -38,6 +44,11 @@
       <span>{poll.answerB} ({poll.votesB})</span>
     </div>
     <i>{Boolean(percentB) ? percentB : 0}%</i>
+  </div>
+  <div class="delete">
+    <Button flat on:click={() => deletePoll(poll.id)}>
+      delete
+    </Button>
   </div>
 </Card>
 
@@ -69,5 +80,9 @@ span {
 }
 i {
   font-size: 12px;
+}
+.delete {
+  margin-top: 30px;
+  text-align: center;
 }
 </style>

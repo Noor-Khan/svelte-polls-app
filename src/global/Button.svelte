@@ -3,7 +3,7 @@ export let type = "primary";
 export let flat = false;
 export let inverse = false;
 </script>
-<button class={type} class:flat={flat} class:inverse={inverse}>
+<button class={type} class:flat={flat} class:inverse={inverse} on:click>
   <slot></slot>
 </button>
 <style>
