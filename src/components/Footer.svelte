@@ -1,5 +1,5 @@
 <footer>
-  <p class="copyright">Copyright 2023, All rights reserved</p>
+  <p class="copyright">Copyright 2023</p>
 </footer>
 <style>
   footer {
